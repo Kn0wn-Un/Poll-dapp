@@ -10,7 +10,6 @@ contract PollApp {
         uint8 numberOfOptions;
         uint8 time;
         uint256[] votes;
-        bool showCount;
     }
 
     Poll[] public pollsArray;
@@ -28,7 +27,6 @@ contract PollApp {
     function createPoll(
         string memory _question,
         uint8 _time,
-        bool _showCount,
         uint8 _numberOfOptions,
         string[] memory _options
     ) public {
@@ -37,15 +35,14 @@ contract PollApp {
             "Question is empty"
         );
         require(_time <= 24, "Time cannot exceed 24 hours");
-        require(
-            _options.length == _numberOfOptions,
-            "Options list not equal to number of options"
-        );
+        require(_options.length != 1, "Only one option given");
+        if (_options.length != _numberOfOptions) {
+            _numberOfOptions = uint8(_options.length);
+        }
         Poll memory poll;
         poll.question = _question;
         poll.creator = msg.sender;
         poll.time = _time;
-        poll.showCount = _showCount;
         poll.numberOfOptions = _numberOfOptions;
         poll.options = _options;
         uint256[] memory tempArray = new uint256[](_numberOfOptions);
@@ -61,7 +58,7 @@ contract PollApp {
         );
         for (uint256 i = 0; i < pollVotes[_pollNumber].length; i++) {
             if (pollVotes[_pollNumber][i] == msg.sender)
-                revert("already voted");
+                revert("Already voted");
         }
         Poll storage poll = pollsArray[_pollNumber];
         poll.votes[_optionNumber]++;
@@ -78,6 +75,7 @@ contract PollApp {
         view
         returns (uint256[] memory votes)
     {
+        require(_pollNumber < pollsArray.length, "Invalid poll number");
         votes = pollsArray[_pollNumber].votes;
     }
 
@@ -94,6 +92,26 @@ contract PollApp {
         view
         returns (address[] memory users)
     {
+        require(_pollNumber < pollsArray.length, "Invalid poll number");
         users = pollVotes[_pollNumber];
+    }
+
+    function getUserPollVote(uint256 _pollNumber, address _userAddress)
+        public
+        view
+        returns (UserVote memory userVote)
+    {
+        require(_pollNumber < pollsArray.length, "Invalid poll number");
+        UserVote[] memory votes = userVotes[_userAddress];
+        bool hasVoted = false;
+        for (uint256 i = 0; i < votes.length; i++) {
+            if (votes[i].poll == _pollNumber) {
+                hasVoted = true;
+                userVote = votes[i];
+            }
+        }
+        if (!hasVoted) {
+            revert("Not Voted");
+        }
     }
 }
