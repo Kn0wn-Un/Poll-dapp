@@ -49,7 +49,8 @@ contract PollApp {
             keccak256(abi.encode(_question)) != keccak256(abi.encode("")),
             "Question is empty"
         );
-        require(_timeLimit <= 24, "Time cannot exceed 24 hours");
+        require(_timeLimit > 0, "Time limit cannot be less than 1 hour");
+        require(_timeLimit <= 24, "Time limit cannot exceed 24 hours");
         require(_options.length != 1, "Only one option given");
         _;
     }
