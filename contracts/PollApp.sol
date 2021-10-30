@@ -57,11 +57,8 @@ contract PollApp {
 
     // modifier to check if _optionNumber and voting time is valid
     modifier voteCheck(uint256 _pollNumber, uint8 _optionNumber) {
-        require(
-            _optionNumber < pollsArray[_pollNumber].numberOfOptions,
-            "Invalid option number"
-        );
         Poll memory poll = pollsArray[_pollNumber];
+        require(_optionNumber < poll.numberOfOptions, "Invalid option number");
         require(
             block.timestamp <= poll.timeCreated + poll.timeLimit * 1 hours,
             "Time limit exceeded"
