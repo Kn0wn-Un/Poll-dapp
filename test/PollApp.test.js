@@ -82,7 +82,14 @@ contract('PollApp', (accounts) => {
 	describe('vote(_pollNumber, _optionNumber)', function () {
 		it('should revert if poll does not exists', async () => {
 			try {
-				await pollApp.vote(1, 0);
+				await pollApp.vote(1, 0, { from: accounts[1] });
+			} catch (error) {
+				assert.equal(error.reason, 'Invalid poll number');
+			}
+		});
+		it('should revert if creator votes', async () => {
+			try {
+				await pollApp.vote(1, 0, { from: accounts[0] });
 			} catch (error) {
 				assert.equal(error.reason, 'Invalid poll number');
 			}
@@ -107,7 +114,7 @@ contract('PollApp', (accounts) => {
 				() => {}
 			);
 			try {
-				await pollApp.vote(0, 1);
+				await pollApp.vote(0, 1, { from: accounts[1] });
 			} catch (error) {
 				assert.equal(error.reason, 'Time limit exceeded');
 			}
@@ -115,14 +122,14 @@ contract('PollApp', (accounts) => {
 		describe('invalid option number is given', () => {
 			it('should revert if poll option -ve', async () => {
 				try {
-					await pollApp.vote(0, -1);
+					await pollApp.vote(0, -1, { from: accounts[1] });
 				} catch (error) {
 					assert.equal(error.reason, 'value out-of-bounds');
 				}
 			});
 			it('should revert if poll option is greater than number of options', async () => {
 				try {
-					await pollApp.vote(0, 2);
+					await pollApp.vote(0, 2, { from: accounts[1] });
 				} catch (error) {
 					assert.equal(error.reason, 'Invalid option number');
 				}
@@ -130,11 +137,11 @@ contract('PollApp', (accounts) => {
 		});
 		describe('valid arguments are given', () => {
 			it('should vote', async () => {
-				const results = await pollApp.vote(0, 0);
+				const results = await pollApp.vote(0, 0, { from: accounts[1] });
 				expect(results.receipt.status, true);
 			});
 			it('should emit UserVoted event', async () => {
-				const results = await pollApp.vote(0, 0);
+				const results = await pollApp.vote(0, 0, { from: accounts[1] });
 				assert(results.logs[0].event, 'UserVoted');
 			});
 		});
@@ -183,7 +190,7 @@ contract('PollApp', (accounts) => {
 			expect(result).to.not.be.undefined;
 			expect(Number(result[0].toString(), 10)).to.equal(0);
 			expect(Number(result[1].toString(), 10)).to.equal(0);
-			await pollApp.vote(0, 1);
+			await pollApp.vote(0, 1, { from: accounts[1] });
 			await pollApp.vote(0, 1, { from: accounts[2] });
 			result = await pollApp.getVotes(0);
 			expect(result).to.not.be.undefined;
@@ -196,8 +203,8 @@ contract('PollApp', (accounts) => {
 			let result = await pollApp.getUserVotes(accounts[0]);
 			expect(result).to.not.be.undefined;
 			expect(result).to.have.lengthOf(0);
-			await pollApp.vote(0, 1);
-			result = await pollApp.getUserVotes(accounts[0]);
+			await pollApp.vote(0, 1, { from: accounts[1] });
+			result = await pollApp.getUserVotes(accounts[1]);
 			expect(result).to.not.be.undefined;
 			expect(result).to.have.lengthOf(1);
 			expect(result[0]).to.have.property('poll', '0');
@@ -216,17 +223,17 @@ contract('PollApp', (accounts) => {
 			}
 		});
 		it('should return voted users', async () => {
-			await pollApp.vote(0, 1);
+			await pollApp.vote(0, 1, { from: accounts[1] });
 			let result = await pollApp.getPollVotedUsers(0);
 			expect(result).to.not.be.undefined;
 			expect(result).to.have.lengthOf(1);
-			expect(result[0]).to.be.equal(accounts[0]);
+			expect(result[0]).to.be.equal(accounts[1]);
 			await pollApp.vote(0, 1, { from: accounts[2] });
 			await pollApp.vote(0, 0, { from: accounts[5] });
 			result = await pollApp.getPollVotedUsers(0);
 			expect(result).to.not.be.undefined;
 			expect(result).to.have.lengthOf(3);
-			expect(result[0]).to.be.equal(accounts[0]);
+			expect(result[0]).to.be.equal(accounts[1]);
 			expect(result[1]).to.be.equal(accounts[2]);
 			expect(result[2]).to.be.equal(accounts[5]);
 		});
@@ -234,7 +241,7 @@ contract('PollApp', (accounts) => {
 	describe('getUserPollVote(_pollNumber, _userAddress)', function () {
 		it('should revert if poll does not exists', async () => {
 			try {
-				await pollApp.getUserPollVote(1, accounts[0]);
+				await pollApp.getUserPollVote(1, accounts[1]);
 			} catch (error) {
 				assert.equal(
 					Object.values(error.data)[0].reason || error.reason,
@@ -244,7 +251,7 @@ contract('PollApp', (accounts) => {
 		});
 		it('should revert if user has not voted', async () => {
 			try {
-				await pollApp.getUserPollVote(0, accounts[0]);
+				await pollApp.getUserPollVote(0, accounts[1]);
 			} catch (error) {
 				assert.equal(
 					Object.values(error.data)[0].reason || error.reason,
@@ -253,8 +260,8 @@ contract('PollApp', (accounts) => {
 			}
 		});
 		it('should return option user voted for', async () => {
-			await pollApp.vote(0, 1);
-			let result = await pollApp.getUserPollVote(0, accounts[0]);
+			await pollApp.vote(0, 1, { from: accounts[1] });
+			let result = await pollApp.getUserPollVote(0, accounts[1]);
 			expect(result).to.not.be.undefined;
 			expect(result).to.have.lengthOf(2);
 			expect(result).to.have.property('poll', '0');

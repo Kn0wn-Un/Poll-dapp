@@ -59,6 +59,7 @@ contract PollApp {
     modifier voteCheck(uint256 _pollNumber, uint8 _optionNumber) {
         Poll memory poll = pollsArray[_pollNumber];
         require(_optionNumber < poll.numberOfOptions, "Invalid option number");
+        require(msg.sender != poll.creator, "creator himself cannot vote");
         require(
             block.timestamp <= poll.timeCreated + poll.timeLimit * 1 hours,
             "Time limit exceeded"
