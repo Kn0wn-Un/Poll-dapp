@@ -67,7 +67,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -106,7 +107,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -130,7 +132,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -159,7 +162,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -255,7 +259,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -274,7 +279,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -305,7 +311,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -324,7 +331,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -360,7 +368,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -379,7 +388,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.9+commit.e5eed63a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"pollNumber\",\"type\":\"uint256\"}],\"name\":\"PollCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"pollNumber\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"option\",\"type\":\"uint8\"}],\"name\":\"UserVoted\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_question\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"_endTime\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"_numberOfOptions\",\"type\":\"uint8\"},{\"internalType\":\"string[]\",\"name\":\"_options\",\"type\":\"string[]\"}],\"name\":\"createPoll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllPolls\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"question\",\"type\":\"string\"},{\"internalType\":\"string[]\",\"name\":\"options\",\"type\":\"string[]\"},{\"internalType\":\"uint8\",\"name\":\"numberOfOptions\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"timeCreated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"votes\",\"type\":\"uint256[]\"}],\"internalType\":\"struct PollApp.Poll[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pollNumber\",\"type\":\"uint256\"}],\"name\":\"getPollVotedUsers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"users\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pollNumber\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_userAddress\",\"type\":\"address\"}],\"name\":\"getUserPollVote\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"poll\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"option\",\"type\":\"uint8\"}],\"internalType\":\"struct PollApp.Vote\",\"name\":\"userVote\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_userAddress\",\"type\":\"address\"}],\"name\":\"getUserPolls\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"pollsId\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_userAddress\",\"type\":\"address\"}],\"name\":\"getUserVotes\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"poll\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"option\",\"type\":\"uint8\"}],\"internalType\":\"struct PollApp.Vote[]\",\"name\":\"votes\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pollNumber\",\"type\":\"uint256\"}],\"name\":\"getVotes\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"votes\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pollVotes\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pollsArray\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"question\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"numberOfOptions\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"timeCreated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endTime\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"userPolls\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"userVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"poll\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"option\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pollNumber\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"_optionNumber\",\"type\":\"uint8\"}],\"name\":\"vote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PollApp.sol\":\"PollApp\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PollApp.sol\":{\"keccak256\":\"0x8c70c4d37178655cd2b2bf4cb2560ac0299893411a0b511e609179eece7f99c3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e7eab443e2014839636c3e2db81748426ebcbe89f1f81adcf7521793fa0ee60d\",\"dweb:/ipfs/QmY3WgsSZpQFgS7Eqi4UEu5Fm45A5PZ15XKkaMg4JoqKni\"]}},\"version\":1}",
@@ -31100,10 +31110,17 @@
       "links": {},
       "address": "0xd991E594a9AfBEce3Da368314418aDC80182f2FE",
       "transactionHash": "0x1de3c74ecc0518b02bae1a72cd7f5ff68d77a5d36881d53bb0b2e75539d4b577"
+    },
+    "1635873238796": {
+      "events": {},
+      "links": {},
+      "address": "0x3dF29bfc2030b94335c25BcB15CceD5306A41588",
+      "transactionHash": "0xbb99dd3fc4f683d0587bc89de79eb70e7df98ac24fea59b7e34c995c559a3b51"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-02T17:02:34.841Z",
+  "updatedAt": "2021-11-02T17:14:25.437Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

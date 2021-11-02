@@ -26,6 +26,11 @@ function App() {
 			.send({ from: accounts[0] });
 	};
 
+	const vote = async () => {
+		// Stores a given value, 5 by default.
+		await contract.methods.vote(0, 0).send({ from: accounts[0] });
+	};
+
 	useEffect(() => {
 		(async () => {
 			try {
@@ -87,6 +92,7 @@ function App() {
 			</p>
 			<div>The array is of length: {res.length}</div>
 			<button onClick={makePoll}>Make Poll!</button>
+			<button onClick={vote}>Vote!</button>
 		</div>
 	);
 }
