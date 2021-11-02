@@ -11,9 +11,9 @@ function App() {
 	const [accounts, setAccounts] = useState(null);
 	const [contract, setContract] = useState(null);
 
-	const getPolls = async (c) => {
+	const getPolls = async () => {
 		// Stores a given value, 5 by default.
-		const response = await c.methods.getAllPolls().call();
+		const response = await contract.methods.getAllPolls().call();
 
 		// Update state with the result.
 		setRes(response);
@@ -43,20 +43,11 @@ function App() {
 					deployedNetwork && deployedNetwork.address
 				);
 
-				instance.events
-					.PollCreated()
-					.on('data', function (event) {
-						getPolls(instance);
-						console.log(event);
-					})
-					.on('error', console.error);
-
 				// Set web3, accounts, and contract to the state, and then proceed with an
 				// example of interacting with the contract's methods.
 				setWeb3(w3);
 				setAccounts(acc);
 				setContract(instance);
-				getPolls(instance);
 			} catch (error) {
 				// Catch any errors for any of the above operations.
 				alert(
@@ -68,9 +59,17 @@ function App() {
 	});
 	useEffect(() => {
 		if (contract) {
-			getPolls(contract);
+			contract.events
+				.PollCreated()
+				.on('data', function (event) {
+					getPolls();
+					console.log(event);
+				})
+				.on('error', console.error);
+			getPolls();
 		}
 	}, [contract]);
+
 	if (!web3) {
 		return <div>Loading Web3, accounts, and contract...</div>;
 	}

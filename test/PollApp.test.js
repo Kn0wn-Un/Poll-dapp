@@ -270,4 +270,16 @@ contract('PollApp', (accounts) => {
 			expect(result).to.have.property('option', '1');
 		});
 	});
+	describe('getUserPolls(_userAddress)', function () {
+		it('should return array of poll id', async () => {
+			await pollApp.createPoll('question 2?', 1, 2, ['yes', 'no'], {
+				from: accounts[0],
+			});
+			let result = await pollApp.getUserPolls(accounts[0]);
+			expect(result).to.not.be.undefined;
+			expect(result).to.have.lengthOf(2);
+			expect(Number(result[0].toString(), 10)).to.be.equal(0);
+			expect(Number(result[1].toString(), 10)).to.be.equal(1);
+		});
+	});
 });

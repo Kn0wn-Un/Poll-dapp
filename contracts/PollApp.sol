@@ -25,8 +25,10 @@ contract PollApp {
 
     // mapping user to votes
     // mappping poll to users
+    // mapping creators to pollId
     mapping(address => Vote[]) public userVotes;
     mapping(uint256 => address[]) public pollVotes;
+    mapping(address => uint256[]) public userPolls;
 
     // event poll created
     // event user voted
@@ -83,6 +85,7 @@ contract PollApp {
         poll.timeCreated = block.timestamp;
         uint256[] memory tempArray = new uint256[](_numberOfOptions);
         poll.votes = tempArray;
+        userPolls[msg.sender].push(pollsArray.length);
         pollsArray.push(poll);
         emit PollCreated(msg.sender, pollsArray.length - 1);
     }
@@ -156,5 +159,14 @@ contract PollApp {
         if (!hasVoted) {
             revert("Not Voted");
         }
+    }
+
+    // function getUserPolls returns an array of poll ids of the _userAddress
+    function getUserPolls(address _userAddress)
+        public
+        view
+        returns (uint256[] memory pollsId)
+    {
+        pollsId = userPolls[_userAddress];
     }
 }
