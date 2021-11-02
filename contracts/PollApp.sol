@@ -9,8 +9,8 @@ contract PollApp {
         string question;
         string[] options;
         uint8 numberOfOptions;
-        uint8 timeLimit;
         uint256 timeCreated;
+        uint256 endTime;
         uint256[] votes;
     }
 
@@ -39,18 +39,18 @@ contract PollApp {
         _;
     }
 
-    // modifier to check if _question, _timeLimit and _options are valid
+    // modifier to check if _question, _endTime and _options are valid
     modifier pollCheck(
         string memory _question,
-        uint8 _timeLimit,
+        uint8 _endTime,
         string[] memory _options
     ) {
         require(
             keccak256(abi.encode(_question)) != keccak256(abi.encode("")),
             "Question is empty"
         );
-        require(_timeLimit > 0, "Time limit cannot be less than 1 hour");
-        require(_timeLimit <= 24, "Time limit cannot exceed 24 hours");
+        require(_endTime > 0, "Time limit cannot be less than 1 hour");
+        require(_endTime <= 24, "Time limit cannot exceed 24 hours");
         require(_options.length != 1, "Only one option given");
         _;
     }
@@ -60,27 +60,24 @@ contract PollApp {
         Poll memory poll = pollsArray[_pollNumber];
         require(_optionNumber < poll.numberOfOptions, "Invalid option number");
         require(msg.sender != poll.creator, "creator himself cannot vote");
-        require(
-            block.timestamp <= poll.timeCreated + poll.timeLimit * 1 hours,
-            "Time limit exceeded"
-        );
+        require(block.timestamp <= poll.endTime, "Time limit exceeded");
         _;
     }
 
     // function createPoll to create new polls and push it into pollsArray
     function createPoll(
         string memory _question,
-        uint8 _timeLimit,
+        uint8 _endTime,
         uint8 _numberOfOptions,
         string[] memory _options
-    ) public pollCheck(_question, _timeLimit, _options) {
+    ) public pollCheck(_question, _endTime, _options) {
         if (_options.length != _numberOfOptions) {
             _numberOfOptions = uint8(_options.length);
         }
         Poll memory poll;
         poll.question = _question;
         poll.creator = msg.sender;
-        poll.timeLimit = _timeLimit;
+        poll.endTime = block.timestamp + uint256(_endTime) * 3600;
         poll.numberOfOptions = _numberOfOptions;
         poll.options = _options;
         poll.timeCreated = block.timestamp;

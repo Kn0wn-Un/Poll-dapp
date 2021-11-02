@@ -6,7 +6,7 @@ contract('PollApp', (accounts) => {
 		// Deploy a new contract for each test
 		pollApp = await PollApp.new();
 	});
-	describe('createPoll(_question, _timeLimit, _numberOfOptions, _options)', function () {
+	describe('createPoll(_question, _endTime, _numberOfOptions, _options)', function () {
 		it('should revert if question is empty', async () => {
 			try {
 				await pollApp.createPoll('', 1, 2, ['yes', 'no'], {
@@ -18,7 +18,7 @@ contract('PollApp', (accounts) => {
 		});
 		it('should revert if time limit is > 24 hours', async () => {
 			try {
-				await pollApp.createPoll('Question?', 78, 2, ['yes', 'no'], {
+				await pollApp.createPoll('Question?', 25, 2, ['yes', 'no'], {
 					from: accounts[0],
 				});
 			} catch (error) {
@@ -99,7 +99,7 @@ contract('PollApp', (accounts) => {
 				{
 					jsonrpc: '2.0',
 					method: 'evm_increaseTime',
-					params: [1 * 60 * 60],
+					params: [1 * 3600],
 					id: 0,
 				},
 				() => {}
@@ -169,9 +169,11 @@ contract('PollApp', (accounts) => {
 			expect(result[1].question).to.equal('question two ?');
 			expect(result[1].options).to.eql(['yes', 'no']);
 			expect(Number(result[1].numberOfOptions, 10)).to.equal(2);
-			expect(Number(result[1].timeLimit, 10)).to.equal(1);
-			expect(result[1].votes).to.eql(['0', '0']);
 			expect(Number(result[1].timeCreated, 10)).to.be.below(Date.now());
+			expect(Number(result[1].endTime, 10)).to.be.equal(
+				Number(result[1].timeCreated, 10) + 3600
+			);
+			expect(result[1].votes).to.eql(['0', '0']);
 		});
 	});
 	describe('getVotes(_pollNumber)', function () {
