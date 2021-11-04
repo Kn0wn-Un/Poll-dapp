@@ -11,7 +11,7 @@ function Poll(props) {
 
 	return (
 		<div className="App">
-			<h1>User</h1>
+			<div className="page-heading">User</div>
 			<button onClick={vote} disabled={voted}>
 				Vote
 			</button>

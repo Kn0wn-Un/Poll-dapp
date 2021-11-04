@@ -11,3 +11,8 @@
 	flex-grow: 1;
 	border: 2px solid black;
 }
+.page-heading {
+	font-size: 30px;
+	text-align: center;
+	margin: 20px;
+}

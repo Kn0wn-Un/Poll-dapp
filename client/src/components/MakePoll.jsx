@@ -11,7 +11,7 @@ function MakePoll(props) {
 
 	return (
 		<div className="App">
-			<h1>Make Poll</h1>
+			<div className="page-heading">Make Poll</div>
 			<button onClick={makePoll}>Make Poll</button>
 			<Link to="/poll">Poll</Link>
 			<br />

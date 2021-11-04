@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import '../styles/nav.css';
-function Nav(props) {
+function Nav() {
 	return (
 		<div className="nav">
 			<div className="nav-header">

@@ -1,0 +1,23 @@
+.home-section {
+	margin-top: 1vh;
+}
+.home-poll-div {
+	border: 1px solid green;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	margin: 10px 5px;
+}
+.home-poll-div:hover {
+	cursor: pointer;
+	border: 1px solid greenyellow;
+}
+
+.home-poll-div-qbox {
+	padding: 0 10px;
+	flex-grow: 1;
+}
+.home-poll-div-question {
+	font-size: 36px;
+	padding: 18px 0;
+}

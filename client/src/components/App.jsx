@@ -72,7 +72,10 @@ function App() {
 								path="/user"
 								render={() => <User contract={contract} accounts={accounts} />}
 							/>
-							<Route path="/" render={() => <Home contract={contract} />} />
+							<Route
+								path="/"
+								render={() => <Home contract={contract} accounts={accounts} />}
+							/>
 						</Switch>
 					</div>
 				</Router>
