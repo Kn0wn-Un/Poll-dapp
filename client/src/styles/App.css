@@ -1,0 +1,13 @@
+.main-section {
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+}
+.main-section-nav {
+	width: 400px;
+	border: 2px solid red;
+}
+.main-section-main {
+	flex-grow: 1;
+	border: 2px solid black;
+}
