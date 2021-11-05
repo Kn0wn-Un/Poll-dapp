@@ -12,6 +12,7 @@ contract PollApp {
         uint256 timeCreated;
         uint256 endTime;
         uint256[] votes;
+        uint256 id;
     }
 
     // dynamic polls array containing all the polls
@@ -85,6 +86,7 @@ contract PollApp {
         poll.timeCreated = block.timestamp;
         uint256[] memory tempArray = new uint256[](_numberOfOptions);
         poll.votes = tempArray;
+        poll.id = pollsArray.length;
         userPolls[msg.sender].push(pollsArray.length);
         pollsArray.push(poll);
         emit PollCreated(msg.sender, pollsArray.length - 1);

@@ -174,6 +174,7 @@ contract('PollApp', (accounts) => {
 				Number(result[1].timeCreated, 10) + 3600
 			);
 			expect(result[1].votes).to.eql(['0', '0']);
+			expect(result[1].id).to.eql('1');
 		});
 	});
 	describe('getVotes(_pollNumber)', function () {
