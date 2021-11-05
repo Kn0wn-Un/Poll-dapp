@@ -17,6 +17,9 @@
 	padding: 0 10px;
 	flex-grow: 1;
 }
+.home-poll-div-q-details span {
+	margin-right: 10px;
+}
 .home-poll-div-question {
 	font-size: 36px;
 	padding: 18px 0;

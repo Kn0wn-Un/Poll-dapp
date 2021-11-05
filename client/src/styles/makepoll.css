@@ -1,0 +1,37 @@
+.make-poll-tips {
+	font-size: 18px;
+	margin: 20px;
+}
+.make-poll-input-section {
+	border: 1px solid black;
+	font-size: 30px;
+}
+.make-poll-input-sub {
+	border: 1px solid grey;
+	margin: 20px 10px;
+	padding: 10px;
+}
+.make-poll-input-head {
+	display: flex;
+}
+.make-poll-input-head input {
+	flex-grow: 1;
+}
+.make-poll-btn {
+	width: fit-content;
+	padding: 10px;
+	cursor: pointer;
+	border: 1px solid green;
+}
+.make-poll-btn-div {
+	display: flex;
+	justify-content: center;
+}
+.make-poll-input-instruction {
+	margin: 10px 0;
+	font-size: 18px;
+	color: gray;
+}
+.make-poll-options-input {
+	margin: 20px;
+}

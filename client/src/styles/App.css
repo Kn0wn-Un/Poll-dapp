@@ -1,14 +1,14 @@
 .main-section {
 	display: flex;
 	flex-direction: row;
-	height: 100vh;
+	min-height: 100vh;
 }
 .main-section-nav {
-	width: 400px;
+	width: 30%;
 	border: 2px solid red;
 }
 .main-section-main {
-	flex-grow: 1;
+	width: 80%;
 	border: 2px solid black;
 }
 .page-heading {
