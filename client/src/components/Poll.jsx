@@ -15,6 +15,19 @@ function Poll(props) {
 	const [hasVoted, setHasVoted] = useState(false);
 	const [votedOption, setVotedOption] = useState('');
 	const [option, setOption] = useState(-1);
+	const [voters, setVoters] = useState([]);
+
+	const participatedUsers = async () => {
+		try {
+			let response = await props.contract.methods
+				.getPollVotedUsers(Number(pollid, 10))
+				.call();
+			setVoters(response);
+			console.log(response);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const getPoll = async () => {
 		try {
@@ -94,6 +107,7 @@ function Poll(props) {
 			setTotalVotes(totalVotes);
 			if (props.accounts[0] === res.creator) {
 				setIsCreator(true);
+				participatedUsers();
 			}
 		}
 	}, [res]);
@@ -182,6 +196,16 @@ function Poll(props) {
 						</div>
 					</div>
 				</div>
+				{isCreator && voters ? (
+					<div className="poll-users-list">
+						<h2>Users who voted:</h2>
+						{voters.map((v, i) => (
+							<li key={v + i}>{v}</li>
+						))}
+					</div>
+				) : (
+					<></>
+				)}
 			</div>
 		</div>
 	);
