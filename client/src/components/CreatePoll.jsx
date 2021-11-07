@@ -38,7 +38,6 @@ function CreatePoll(props) {
 			default:
 				return;
 		}
-		setOptions([...Array(noOfOptions)].map((_, i) => optionValue(i)));
 	};
 	const optionValue = (i) => {
 		switch (i) {
@@ -78,14 +77,14 @@ function CreatePoll(props) {
 
 	const validateInputs = () => {
 		if (
-			question &&
+			question.trim() &&
 			noOfOptions >= 2 &&
 			noOfOptions <= 5 &&
 			timeLimit >= 1 &&
 			timeLimit <= 24
 		) {
 			for (let i = 0; i < noOfOptions; i++) {
-				if (!optionValue(i)) {
+				if (!optionValue(i).trim()) {
 					setAllowButton(false);
 					return;
 				}
@@ -95,6 +94,10 @@ function CreatePoll(props) {
 		}
 		setAllowButton(false);
 	};
+
+	useEffect(() => {
+		setOptions([...Array(noOfOptions)].map((_, i) => optionValue(i).trim()));
+	}, [option1, option2, option3, option4, option5]);
 
 	useEffect(() => {
 		validateInputs();
@@ -108,6 +111,21 @@ function CreatePoll(props) {
 		option4,
 		option5,
 	]);
+	useEffect(() => {
+		if (props.contract && props.accounts) {
+			props.contract.events.PollCreated(
+				{
+					filter: {
+						creator: props.accounts[0],
+					},
+				},
+				function (error, event) {
+					alert('Poll created');
+					window.location.replace(`/poll/${event.returnValues.pollNumber}`);
+				}
+			);
+		}
+	}, []);
 
 	return (
 		<section className="make-poll-section">

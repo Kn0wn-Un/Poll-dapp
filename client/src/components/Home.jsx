@@ -6,7 +6,7 @@ function Home(props) {
 
 	const getPolls = async () => {
 		const response = await props.contract.methods.getAllPolls().call();
-		setRes(response);
+		setRes(response.reverse());
 		console.log(response);
 	};
 
@@ -33,8 +33,8 @@ function Home(props) {
 		}
 
 		return (
-			<Link to={`/poll/${poll.id}`}>
-				<div className="home-poll-div" key={poll.id}>
+			<Link to={`/poll/${poll.id}`} key={poll.id}>
+				<div className="home-poll-div">
 					<div className="home-poll-div-qbox">
 						<div className="home-poll-div-q-details">
 							<span>Created by {poll.creator} </span>

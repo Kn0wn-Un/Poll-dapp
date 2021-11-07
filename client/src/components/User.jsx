@@ -13,7 +13,7 @@ function User(props) {
 		for (let i = 0; i < pollsIdArr.length; i++) {
 			userPolls.push(pollsArr[Number(pollsIdArr[i], 10)]);
 		}
-		setRes(userPolls);
+		setRes(userPolls.reverse());
 		console.log(userPolls);
 	};
 
@@ -25,8 +25,8 @@ function User(props) {
 		}
 
 		return (
-			<Link to={`/poll/${poll.id}`}>
-				<div className="home-poll-div" key={poll.id}>
+			<Link to={`/poll/${poll.id}`} key={poll.id}>
+				<div className="home-poll-div">
 					<div className="home-poll-div-qbox">
 						<div className="home-poll-div-q-details">
 							<span>(Poll ID: {Number(poll.id, 10)})</span>
@@ -41,7 +41,11 @@ function User(props) {
 	useEffect(() => {
 		if (props.contract) {
 			props.contract.events
-				.PollCreated()
+				.PollCreated({
+					filter: {
+						creator: props.accounts[0],
+					},
+				})
 				.on('data', function (event) {
 					getPolls();
 					console.log(event);

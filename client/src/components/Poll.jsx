@@ -49,6 +49,23 @@ function Poll(props) {
 	useEffect(() => {
 		if (props.contract && props.accounts) {
 			getPoll();
+			props.contract.events.UserVoted(
+				{
+					filter: {
+						user: props.accounts[0],
+					},
+				},
+				function (error, event) {
+					// window.location.reload();
+					console.log(event.returnValues);
+					if (
+						event.returnValues.pollNumber === pollid &&
+						event.returnValues.user === props.accounts[0]
+					) {
+						getPoll();
+					}
+				}
+			);
 		}
 	}, [props.contract, props.accounts]);
 
@@ -78,16 +95,6 @@ function Poll(props) {
 			if (props.accounts[0] === res.creator) {
 				setIsCreator(true);
 			}
-			props.contract.events.UserVoted(
-				{
-					filter: {
-						user: props.accounts[0],
-					},
-				},
-				function () {
-					window.location.reload();
-				}
-			);
 		}
 	}, [res]);
 
@@ -127,6 +134,8 @@ function Poll(props) {
 													borderRadius="0px"
 													width=""
 													bgColor={votedOption === o ? '#0000ff' : '#0000ff7f'}
+													labelAlignment="left"
+													labelColor={res.votes[i] > 0 ? '#FFF' : '#000'}
 												/>
 											);
 										})}
@@ -143,14 +152,6 @@ function Poll(props) {
 													value={i.toString()}
 													key={i}
 													disabled={hasVoted || isCreator || expired}
-													style={
-														hasVoted
-															? {
-																	background:
-																		'linear-gradient(#e66465, #9198e5);',
-															  }
-															: {}
-													}
 												>
 													{o}
 												</RadioButton>
