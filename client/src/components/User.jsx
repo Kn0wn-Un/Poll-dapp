@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/home.css';
 function User(props) {
 	const [res, setRes] = useState([]);
@@ -24,15 +25,17 @@ function User(props) {
 		}
 
 		return (
-			<div className="home-poll-div" key={poll.id}>
-				<div className="home-poll-div-qbox">
-					<div className="home-poll-div-q-details">
-						<span>(Poll ID: {Number(poll.id, 10) + 1})</span>
+			<Link to={`/poll/${poll.id}`}>
+				<div className="home-poll-div" key={poll.id}>
+					<div className="home-poll-div-qbox">
+						<div className="home-poll-div-q-details">
+							<span>(Poll ID: {Number(poll.id, 10)})</span>
+						</div>
+						<div className="home-poll-div-question">{poll.question}</div>
+						<div>{totalVotes} votes</div>
 					</div>
-					<div className="home-poll-div-question">{poll.question}</div>
-					<div>{totalVotes} votes</div>
 				</div>
-			</div>
+			</Link>
 		);
 	};
 	useEffect(() => {
@@ -58,7 +61,7 @@ function User(props) {
 
 	return (
 		<section className="home-section">
-			<div className="page-heading">Home</div>
+			<div className="page-heading">My Polls</div>
 			<div>
 				{res.length ? (
 					res.map((p) => listPolls(p))

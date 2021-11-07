@@ -4,7 +4,7 @@ import PollApp from '../contracts/PollApp.json';
 import getWeb3 from '../getWeb3';
 import Home from './Home';
 import Poll from './Poll';
-import MakePoll from './MakePoll';
+import CreatePoll from './CreatePoll';
 import User from './User';
 import '../styles/App.css';
 import Nav from '../containers/Nav';
@@ -44,7 +44,7 @@ function App() {
 				console.error(error);
 			}
 		})();
-	});
+	}, []);
 
 	if (!web3) {
 		return <div>Loading Web3, accounts, and contract...</div>;
@@ -59,13 +59,13 @@ function App() {
 					<div className="main-section-main">
 						<Switch>
 							<Route
-								path="/makepoll"
+								path="/createpoll"
 								render={() => (
-									<MakePoll contract={contract} accounts={accounts} />
+									<CreatePoll contract={contract} accounts={accounts} />
 								)}
 							/>
 							<Route
-								path="/poll"
+								path="/poll/:pollid"
 								render={() => <Poll contract={contract} accounts={accounts} />}
 							/>
 							<Route

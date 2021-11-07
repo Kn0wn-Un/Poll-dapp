@@ -14,10 +14,10 @@ function Nav() {
 					<Link to="/">Home</Link>
 				</div>
 				<div>
-					<Link to="/user">User</Link>
+					<Link to="/user">My Polls</Link>
 				</div>
 				<div>
-					<Link to="/makepoll">Make Poll!</Link>
+					<Link to="/createpoll">Make Poll!</Link>
 				</div>
 			</div>
 			<div className="nav-footer">

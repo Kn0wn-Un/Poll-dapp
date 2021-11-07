@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/home.css';
 function Home(props) {
 	const [res, setRes] = useState([]);
@@ -23,7 +24,7 @@ function Home(props) {
 		if (timeCreated < 1) {
 			timeCreated = Math.round(60 * timeCreated) + ' mins';
 		} else {
-			timeCreated = Math.round(timeLeft) + ' hrs';
+			timeCreated = Math.round(timeCreated) + ' hrs';
 		}
 
 		let totalVotes = 0;
@@ -32,20 +33,22 @@ function Home(props) {
 		}
 
 		return (
-			<div className="home-poll-div" key={poll.id}>
-				<div className="home-poll-div-qbox">
-					<div className="home-poll-div-q-details">
-						<span>Created by {poll.creator} </span>
-						<span>{timeCreated} ago </span>
-						<span>(Poll ID: {Number(poll.id, 10) + 1})</span>
-					</div>
-					<div className="home-poll-div-question">{poll.question}</div>
-					<div>
-						<span>{totalVotes} votes • </span>
-						<span>{timeLeft} left</span>
+			<Link to={`/poll/${poll.id}`}>
+				<div className="home-poll-div" key={poll.id}>
+					<div className="home-poll-div-qbox">
+						<div className="home-poll-div-q-details">
+							<span>Created by {poll.creator} </span>
+							<span>{timeCreated} ago </span>
+							<span>(Poll ID: {Number(poll.id, 10)})</span>
+						</div>
+						<div className="home-poll-div-question">{poll.question}</div>
+						<div>
+							<span>{totalVotes} votes • </span>
+							<span>{timeLeft} left</span>
+						</div>
 					</div>
 				</div>
-			</div>
+			</Link>
 		);
 	};
 	useEffect(() => {

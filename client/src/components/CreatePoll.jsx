@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/makepoll.css';
-function MakePoll(props) {
+import '../styles/createpoll.css';
+function CreatePoll(props) {
 	const [question, setQuestion] = useState('');
 	const [noOfOptions, setNoOfOptions] = useState(2);
 	const [options, setOptions] = useState([]);
@@ -201,4 +201,4 @@ function MakePoll(props) {
 	);
 }
 
-export default MakePoll;
+export default CreatePoll;
