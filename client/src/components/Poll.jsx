@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
+import ProgressBar from '@ramonak/react-progress-bar';
 import '../styles/home.css';
 import '../styles/poll.css';
 function Poll(props) {
@@ -12,13 +13,14 @@ function Poll(props) {
 	const [expired, setExpired] = useState(false);
 	const [isCreator, setIsCreator] = useState(false);
 	const [hasVoted, setHasVoted] = useState(false);
-	const [votedOption, setVotedOption] = useState(-1);
+	const [votedOption, setVotedOption] = useState('');
 	const [option, setOption] = useState(-1);
 
 	const getPoll = async () => {
 		try {
 			let response = await props.contract.methods.getAllPolls().call();
 			setRes(response[pollid]);
+			const poll = response[pollid];
 			console.log(response[pollid]);
 			response = await props.contract.methods
 				.getUserVotes(props.accounts[0])
@@ -26,7 +28,7 @@ function Poll(props) {
 			for (let i = 0; i < response.length; i++) {
 				if (response[i][0] === pollid.toString()) {
 					setHasVoted(true);
-					setVotedOption(response[i][1]);
+					setVotedOption(poll.options[Number(response[i][1], 10)]);
 				}
 			}
 			console.log(response);
@@ -101,27 +103,55 @@ function Poll(props) {
 						<div className="home-poll-div-question">{res.question}</div>
 						<div className="poll-vote-div">
 							<div className="poll-options">
-								<RadioGroup
-									onChange={(e) => {
-										setOption(e);
-									}}
-								>
-									{res.options.map((o, i) => {
-										return (
-											<RadioButton
-												value={i.toString()}
-												key={i}
-												disabled={hasVoted || isCreator || expired}
-											>
-												{o}
-											</RadioButton>
-										);
-									})}
-								</RadioGroup>
+								{hasVoted || isCreator || expired ? (
+									<div>
+										{res.options.map((o, i) => {
+											return (
+												<ProgressBar
+													key={i}
+													completed={res.votes[i]}
+													maxCompleted={totalVotes}
+													height="50px"
+													margin="20px"
+													customLabel={o}
+													borderRadius="0px"
+													width=""
+													bgColor={votedOption === o ? '#0000ff' : '#0000ff7f'}
+												/>
+											);
+										})}
+									</div>
+								) : (
+									<RadioGroup
+										onChange={(e) => {
+											setOption(e);
+										}}
+									>
+										{res.options.map((o, i) => {
+											return (
+												<RadioButton
+													value={i.toString()}
+													key={i}
+													disabled={hasVoted || isCreator || expired}
+													style={
+														hasVoted
+															? {
+																	background:
+																		'linear-gradient(#e66465, #9198e5);',
+															  }
+															: {}
+													}
+												>
+													{o}
+												</RadioButton>
+											);
+										})}
+									</RadioGroup>
+								)}
 							</div>
 							<div className="poll-vote-btn-div">
 								{hasVoted ? (
-									<div>You have already voted for option {votedOption}!</div>
+									<div>You have voted for {votedOption}!</div>
 								) : (
 									<button
 										className="poll-vote-btn"
