@@ -78,6 +78,16 @@ function Poll(props) {
 			if (props.accounts[0] === res.creator) {
 				setIsCreator(true);
 			}
+			props.contract.events.UserVoted(
+				{
+					filter: {
+						user: props.accounts[0],
+					},
+				},
+				function () {
+					window.location.reload();
+				}
+			);
 		}
 	}, [res]);
 
@@ -103,7 +113,7 @@ function Poll(props) {
 						<div className="home-poll-div-question">{res.question}</div>
 						<div className="poll-vote-div">
 							<div className="poll-options">
-								{hasVoted || isCreator || expired ? (
+								{hasVoted || (isCreator && totalVotes) || expired ? (
 									<div>
 										{res.options.map((o, i) => {
 											return (
@@ -152,6 +162,8 @@ function Poll(props) {
 							<div className="poll-vote-btn-div">
 								{hasVoted ? (
 									<div>You have voted for {votedOption}!</div>
+								) : isCreator ? (
+									<></>
 								) : (
 									<button
 										className="poll-vote-btn"
