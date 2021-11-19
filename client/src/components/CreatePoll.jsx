@@ -59,8 +59,8 @@ function CreatePoll(props) {
 	const makeOptionsInput = (_, i) => {
 		return (
 			<div className="make-poll-options-input" key={i}>
-				<div className="make-poll-input-head">
-					Option {i + 1}:
+				<div className="make-poll-input-head option">
+					<div>Option {i + 1}:</div>
 					<input
 						type="text"
 						value={optionValue(i)}
@@ -131,13 +131,13 @@ function CreatePoll(props) {
 		<section className="make-poll-section">
 			<div className="page-heading">Make Poll</div>
 			<div className="make-poll-tips">
-				Hey there, something to keep in mind, longer the question and/or options
-				more the gas fees...
+				Hey there!, something to keep in mind, longer the question and/or
+				options more the gas fees...
 			</div>
 			<div className="make-poll-input-section">
 				<div className="make-poll-input-sub">
-					<div className="make-poll-input-head">
-						Question:
+					<div className="make-poll-input-head question">
+						<div>Question:</div>
 						<input
 							type="text"
 							value={question}
@@ -149,13 +149,12 @@ function CreatePoll(props) {
 						></input>
 					</div>
 					<div className="make-poll-input-instruction">
-						<div>Maximum 69 characters</div>
-						<div></div>
+						<div>maximum 69 characters</div>
 					</div>
 				</div>
 				<div className="make-poll-input-sub">
 					<div className="make-poll-input-head">
-						Time Limit:
+						<div>Time Limit:</div>
 						<input
 							type="number"
 							value={timeLimit}
@@ -165,7 +164,9 @@ function CreatePoll(props) {
 							max={24}
 							min={1}
 							required
+							className="number-input"
 						></input>
+						<div style={{ marginLeft: '20px' }}>Hours</div>
 					</div>
 					<div className="make-poll-input-instruction">
 						<div>1 - 24 hours</div>
@@ -173,7 +174,7 @@ function CreatePoll(props) {
 				</div>
 				<div className="make-poll-input-sub">
 					<div className="make-poll-input-head">
-						Enter Number of Options:
+						<div>Enter Number of Options:</div>
 						<input
 							type="number"
 							value={noOfOptions}
@@ -186,10 +187,11 @@ function CreatePoll(props) {
 							max={5}
 							min={2}
 							required
+							className="number-input"
 						></input>
 					</div>
 					<div className="make-poll-input-instruction">
-						<div>Maximum 5 options</div>
+						<div>maximum 5 options</div>
 					</div>
 				</div>
 				{noOfOptions ? (
@@ -197,7 +199,7 @@ function CreatePoll(props) {
 						<div className="make-poll-input-head">Enter Options:</div>
 						{[...Array(noOfOptions)].map((s, i) => makeOptionsInput(s, i))}
 						<div className="make-poll-input-instruction">
-							<div>Maximum 30 characters</div>
+							<div>maximum 30 characters</div>
 						</div>
 					</div>
 				) : (

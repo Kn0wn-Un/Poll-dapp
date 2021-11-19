@@ -129,4 +129,12 @@ table {
 }
 body {
 	margin: 0px 12vw;
+	color: #e3d7ff;
+	background-color: rgba(32, 32, 48, 0.9);
+	font-family: 'Montserrat', sans-serif;
+}
+a,
+a:visited {
+	color: #e3d7ff;
+	text-decoration: none;
 }
