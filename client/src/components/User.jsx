@@ -9,6 +9,9 @@ function User(props) {
 			.getUserPolls(props.accounts[0])
 			.call();
 		const pollsArr = await props.contract.methods.getAllPolls().call();
+		if (!pollsArr) {
+			return;
+		}
 		const userPolls = [];
 		for (let i = 0; i < pollsIdArr.length; i++) {
 			userPolls.push(pollsArr[Number(pollsIdArr[i], 10)]);

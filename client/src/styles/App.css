@@ -17,5 +17,7 @@
 .page-heading {
 	font-size: 36px;
 	text-align: center;
-	margin: 20px;
+	padding: 20px 0;
+	border-bottom: 1px solid black;
+	color: #30cfd0;
 }

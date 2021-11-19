@@ -6,3 +6,43 @@
 	list-style: none;
 	margin: 10px 20px;
 }
+.poll-option:hover {
+	transform: scale(1.02);
+}
+.poll-vote-btn {
+	box-sizing: border-box;
+	appearance: none;
+	border: 2px solid green;
+	border-radius: 2px;
+	background-color: rgba(0, 128, 0, 0.2);
+	color: green;
+	cursor: pointer;
+	display: flex;
+	align-self: center;
+	font-size: 1rem;
+	font-weight: 400;
+	padding: 1.2em 2.8em;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin: 0 auto;
+}
+
+.poll-vote-btn:hover:enabled {
+	background-color: rgb(0, 128, 0);
+	transform: scale(1.1);
+	color: whitesmoke;
+}
+.poll-vote-btn:disabled {
+	color: grey;
+	background-color: transparent;
+	border: 2px solid grey;
+}
+.poll-vote-btn-div {
+	text-align: center;
+	margin: 20px auto;
+}
+.poll-users-list h2 {
+	font-size: 20px;
+}

@@ -6,7 +6,13 @@
 	height: 90%;
 }
 .nav-header {
-	font-size: 75px;
+	font-size: 69px;
+	background: #30cfd0;
+	background: -webkit-linear-gradient(to right, #30cfd0 0%, #00a6ed 100%);
+	background: -moz-linear-gradient(to right, #30cfd0 0%, #00a6ed 100%);
+	background: linear-gradient(to right, #30cfd0 0%, #00a6ed 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 .nav-links {
 	font-size: 39px;
@@ -18,4 +24,11 @@
 }
 .nav-footer {
 	text-align: center;
+	font-style: italic;
+}
+.nav-links a {
+	color: #30cfd0;
+}
+.nav-links a:hover {
+	color: #00a6ed;
 }

@@ -6,6 +6,9 @@ function Home(props) {
 
 	const getPolls = async () => {
 		const response = await props.contract.methods.getAllPolls().call();
+		if (!response) {
+			return;
+		}
 		setRes(response.reverse());
 		console.log(response);
 	};
@@ -32,17 +35,19 @@ function Home(props) {
 			totalVotes += Number(poll.votes[i], 10);
 		}
 
+		const created = poll.creator.slice(0, 5) + '...' + poll.creator.slice(-5);
+
 		return (
 			<Link to={`/poll/${poll.id}`} key={poll.id}>
 				<div className="home-poll-div">
 					<div className="home-poll-div-qbox">
 						<div className="home-poll-div-q-details">
-							<span>Created by {poll.creator} </span>
+							<span>Created by {created} </span>
 							<span>{timeCreated} ago </span>
 							<span>(Poll ID: {Number(poll.id, 10)})</span>
 						</div>
 						<div className="home-poll-div-question">{poll.question}</div>
-						<div>
+						<div className="home-poll-div-votes">
 							<span>{totalVotes} votes • </span>
 							<span>{timeLeft} left</span>
 						</div>

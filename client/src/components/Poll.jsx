@@ -41,7 +41,7 @@ function Poll(props) {
 			for (let i = 0; i < response.length; i++) {
 				if (response[i][0] === pollid.toString()) {
 					setHasVoted(true);
-					setVotedOption(poll.options[Number(response[i][1], 10)]);
+					setVotedOption(Number(response[i][1], 10));
 				}
 			}
 			console.log(response);
@@ -144,12 +144,13 @@ function Poll(props) {
 													maxCompleted={totalVotes}
 													height="50px"
 													margin="20px"
-													customLabel={o}
-													borderRadius="0px"
+													customLabel={isCreator ? `${o}(${res.votes[i]})` : o}
+													borderRadius="3px"
 													width=""
-													bgColor={votedOption === o ? '#0000ff' : '#0000ff7f'}
+													bgColor={votedOption === i ? '#AF2BBF' : '#a573b7'}
 													labelAlignment="left"
 													labelColor={res.votes[i] > 0 ? '#FFF' : '#000'}
+													baseBgColor="#80808080"
 												/>
 											);
 										})}
@@ -163,9 +164,12 @@ function Poll(props) {
 										{res.options.map((o, i) => {
 											return (
 												<RadioButton
-													value={i.toString()}
 													key={i}
+													value={i.toString()}
 													disabled={hasVoted || isCreator || expired}
+													pointColor="#83BCA9"
+													rootColor="#586F7C"
+													className="poll-option"
 												>
 													{o}
 												</RadioButton>
@@ -176,7 +180,7 @@ function Poll(props) {
 							</div>
 							<div className="poll-vote-btn-div">
 								{hasVoted ? (
-									<div>You have voted for {votedOption}!</div>
+									<div>You have voted for {res.options[votedOption]}!</div>
 								) : isCreator ? (
 									<></>
 								) : (
@@ -190,7 +194,7 @@ function Poll(props) {
 								)}
 							</div>
 						</div>
-						<div>
+						<div className="home-poll-div-votes">
 							<span>{totalVotes} votes • </span>
 							{expired ? <span>Time Over</span> : <span>{timeLeft} left</span>}
 						</div>
@@ -198,7 +202,7 @@ function Poll(props) {
 				</div>
 				{isCreator && voters ? (
 					<div className="poll-users-list">
-						<h2>Users who voted:</h2>
+						<h2>Users who have voted:</h2>
 						{voters.map((v, i) => (
 							<li key={v + i}>{v}</li>
 						))}

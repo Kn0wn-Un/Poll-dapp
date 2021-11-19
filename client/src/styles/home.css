@@ -2,15 +2,18 @@
 	margin-top: 1vh;
 }
 .home-poll-div {
-	border: 1px solid green;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin: 15px 20px;
 	display: flex;
 	flex-direction: row;
 	padding: 10px;
-	margin: 10px 5px;
+	box-shadow: 0px 0px 10px black;
+	background-color: #202030;
 }
 .home-poll-div:hover {
 	cursor: pointer;
-	border: 1px solid greenyellow;
+	border: 1px solid #00a6ed;
 }
 
 .home-poll-div-qbox {
@@ -23,4 +26,9 @@
 .home-poll-div-question {
 	font-size: 36px;
 	padding: 18px 0;
+}
+.home-poll-div-votes,
+.home-poll-div-q-details {
+	color: #d0bcd5;
+	font-style: italic;
 }

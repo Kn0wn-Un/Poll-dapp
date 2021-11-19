@@ -1,7 +1,11 @@
 import React from 'react';
-
-function Footer(props) {
-	return <div>Made by Darshan : In Progress</div>;
+import '../styles/nav.css';
+function Footer() {
+	return (
+		<a href="https://github.com/Kn0wn-Un/Poll-dapp" target="_blank">
+			Made by Darshan
+		</a>
+	);
 }
 
 export default Footer;
