@@ -9,8 +9,6 @@ On voting users can see the results and the creators and view who all voted as w
 
 Built using [Truffle Suite](https://www.trufflesuite.com/)
 
-### [Live Demo]()
-
 ### Homepage
 
 ![Homepage](/images/HomePage.png 'Homepage')
